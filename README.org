@@ -29,11 +29,6 @@ npm install -g near-cli
 #+end_src
 
 * Step by Step
-+ Install the package
-#+begin_src sh :results output
-cargo make install
-#+end_src
-
 + Prepare
 #+begin_src sh :results output
 cargo make prepare
@@ -47,9 +42,4 @@ cargo make build
 + deploy Contract
 #+begin_src sh :results output
 cargo make dev-deploy
-#+end_src
-
-+ Start Client
-#+begin_src sh :results output
-cargo make run
 #+end_src
