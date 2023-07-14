@@ -8,27 +8,29 @@
 + Prerequisites
 
 #+begin_quote
-Make sure you have a current version of Node.js & Rust installed => We recommend versions 18+ & rust 1.69
++ Make sure you have a current version of Node.js & Rust installed => We recommend versions 18+ & rust 1.69
 #+end_quote
 
++ Requirements
+  + Cargo Make
+    #+begin_src sh :results output
+    cargo install cargo-make
+    #+end_src
+  + Install Near Cli
+    #+begin_src sh :results output
+    npm install -g near-cli
+    #+end_src
 * Getting Started
 ** Clone the repository
 #+begin_src sh :results output
-git clone https://github.com/eamondang/started-near-app.git && cd started-near-app
-#+end_src
-
-** Requirements Install
-+ Cargo Make
-#+begin_src sh :results output
-cargo install cargo-make
-#+end_src
-
-+ Install near Cli
-#+begin_src sh :results output
-npm install -g near-cli
+git clone https://github.com/eamondang/template-near-contract.git && cd template-near-contract
 #+end_src
 
 * Step by Step
+#+begin_quote
+Read more infomation in =Makefile.toml=
+#+end_quote
+
 + Prepare
 #+begin_src sh :results output
 cargo make prepare

@@ -1,11 +1,10 @@
+#![allow(dead_code)]
 use near_sdk::borsh::{self, BorshDeserialize, BorshSerialize};
 use near_sdk::near_bindgen;
-use near_sdk::serde::{Deserialize, Serialize};
 
 // Define the contract structure
 #[near_bindgen]
-#[derive(BorshDeserialize, BorshSerialize, Serialize, Deserialize)]
-#[serde(crate = "near_sdk::serde")]
+#[derive(BorshDeserialize, BorshSerialize)]
 pub struct Contract {
   count: u32,
 }
@@ -25,11 +24,13 @@ impl Contract {
     self.count
   }
 
-  // Private method - Call this method to increment the count by a given number
+  // Call this method to increment the count by a given number
   pub fn plus(&mut self, number: u32) {
     self.count += number;
   }
 
+  // Private method
+  #[private]
   fn plus_one(&mut self) {
     self.count += 1;
   }
