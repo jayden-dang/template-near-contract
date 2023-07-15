@@ -1,37 +1,37 @@
 #![allow(dead_code)]
+pub mod metadata;
+pub mod ecommerce;
+
 use near_sdk::borsh::{self, BorshDeserialize, BorshSerialize};
-use near_sdk::near_bindgen;
+use near_sdk::{near_bindgen, AccountId, PanicOnDefault, env};
+use near_sdk::collections::{UnorderedMap};
+
+use metadata::{ShopMetadata, Product};
 
 // Define the contract structure
 #[near_bindgen]
-#[derive(BorshDeserialize, BorshSerialize)]
+#[derive(BorshDeserialize, BorshSerialize, PanicOnDefault)]
 pub struct Contract {
-  count: u32,
+  owner_id: AccountId,
+  shops: UnorderedMap<AccountId, ShopMetadata>,
+  products: UnorderedMap<u64, Product>,
 }
 
 // Define the default, which automatically initializes the contract
-impl Default for Contract {
-  fn default() -> Self {
-    Self { count: 0 }
-  }
-}
 
 // Implement the contract structure
 #[near_bindgen]
 impl Contract {
-  // Public method - Get the current count
-  pub fn get_number(&self) -> u32 {
-    self.count
-  }
+    #[init]
+    pub fn new() -> Self {
+        Self {
+            owner_id: env::signer_account_id(),   
+            shops: UnorderedMap::new(b"s".to_vec()),
+            products: UnorderedMap::new(b"p".to_vec()),
+        }
+    }
 
-  // Call this method to increment the count by a given number
-  pub fn plus(&mut self, number: u32) {
-    self.count += number;
-  }
-
-  // Private method
-  #[private]
-  fn plus_one(&mut self) {
-    self.count += 1;
-  }
+    pub fn view_all_shop (&self) -> Vec<ShopMetadata>{
+        self.shops.values().collect()
+    }
 }
