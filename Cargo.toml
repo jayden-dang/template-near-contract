@@ -1,14 +1,9 @@
 [package]
+name = "{{project-name}}"
 authors = ["Dang Quang Vu <eamondang@gmail.com>"]
 edition = "2021"
-name = "template-near-contract"
-version = "0.1.1"
-description = "A Start Templates for Near SmartContract"
+version = "0.1.0"
 license = "MIT"
-homepage = "https://github.com/eamondang/near-app-contract"
-repository = "https://github.com/eamondang/near-app-contract"
-keywords = ["near", "template", "contract", "eamon"]
-categories = ["template"]
 
 [lib]
 crate-type = ["cdylib"]

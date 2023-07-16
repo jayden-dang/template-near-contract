@@ -6,32 +6,26 @@ use near_sdk::near_bindgen;
 #[near_bindgen]
 #[derive(BorshDeserialize, BorshSerialize)]
 pub struct Contract {
-  count: u32,
+  message: String,
 }
 
 // Define the default, which automatically initializes the contract
 impl Default for Contract {
   fn default() -> Self {
-    Self { count: 0 }
+    Self { message: "Hello, {{project-name}}".to_string() }
   }
 }
 
 // Implement the contract structure
 #[near_bindgen]
 impl Contract {
-  // Public method - Get the current count
-  pub fn get_number(&self) -> u32 {
-    self.count
+  // get the message
+  pub fn get_message(&self) -> String {
+    self.message.clone()
   }
 
-  // Call this method to increment the count by a given number
-  pub fn plus(&mut self, number: u32) {
-    self.count += number;
-  }
-
-  // Private method
-  #[private]
-  fn plus_one(&mut self) {
-    self.count += 1;
+  // Call this method to change the message b
+  pub fn set_message(&mut self, message: u32) {
+    self.message = message.to_string();
   }
 }
