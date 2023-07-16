@@ -15,15 +15,18 @@
   + Cargo Make
     #+begin_src sh :results output
     cargo install cargo-make
+    cargo install cargo-generate
     #+end_src
+
   + Install Near Cli
     #+begin_src sh :results output
     npm install -g near-cli
     #+end_src
+
 * Getting Started
 ** Clone the repository
 #+begin_src sh :results output
-git clone https://github.com/eamondang/template-near-contract.git && cd template-near-contract
+cargo generate --git https://github.com/eamondang/template-near-contract --name near-template
 #+end_src
 
 * Step by Step
