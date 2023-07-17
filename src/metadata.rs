@@ -10,6 +10,7 @@ pub struct ShopMetadata {
     pub shop_id: AccountId,
     pub name: String,
     pub decription: String,
+    pub owner: AccountId,
 }
 
 #[derive(BorshDeserialize, BorshSerialize, Deserialize, Serialize)]

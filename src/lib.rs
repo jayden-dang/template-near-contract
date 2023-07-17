@@ -34,4 +34,13 @@ impl Contract {
     pub fn view_all_shop (&self) -> Vec<ShopMetadata>{
         self.shops.values().collect()
     }
+
+    pub fn insert_product(&mut self, product_id: String, amount: u64){
+        let mut product = self.products.get(&product_id).expect("Product does not exist");
+        let shop = self.shops.get(&product.shop_id).expect("Shop does not exist");
+        assert!(shop.owner == env::signer_account_id(),"you are not the shop owner");
+
+        product.total_supply += amount;
+        self.products.insert(&product_id, &product);
+    }
 }
