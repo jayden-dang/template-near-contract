@@ -15,7 +15,7 @@ pub struct ShopMetadata {
 #[derive(BorshDeserialize, BorshSerialize, Deserialize, Serialize)]
 #[serde(crate = "near_sdk::serde")]
 pub struct Product {
-    pub product_id: u64,
+    pub product_id: String,
     pub shop_id: AccountId,
     pub name: String,
     pub price: Balance,

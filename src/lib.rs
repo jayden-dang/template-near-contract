@@ -14,7 +14,7 @@ use metadata::{ShopMetadata, Product};
 pub struct Contract {
   owner_id: AccountId,
   shops: UnorderedMap<AccountId, ShopMetadata>,
-  products: UnorderedMap<u64, Product>,
+  products: UnorderedMap<String, Product>,
 }
 
 // Define the default, which automatically initializes the contract

@@ -12,7 +12,7 @@ pub trait ImplementECommerce {
     fn create_shop(&mut self, shop_id: AccountId, name: String, decription: String);
     fn create_product(
         &mut self,
-        product_id: u64,
+        product_id: String,
         shop_id: AccountId,
         name: String,
         price: Balance,
@@ -20,8 +20,8 @@ pub trait ImplementECommerce {
     );
     fn view_all_products(&self) -> Vec<Product>;
     fn view_all_products_per_shop(&self, shop_id: AccountId) -> Vec<Product>;
-    fn view_product_by_id(&self, product_id: u64) -> Option<Product>;
-    fn payment(&mut self, product_id: u64) -> Promise;
+    fn view_product_by_id(&self, product_id: String) -> Option<Product>;
+    fn payment(&mut self, product_id: String, amount: u64) -> Promise;
 }
 
 #[near_bindgen]
@@ -35,7 +35,7 @@ impl ImplementECommerce for Contract {
 
     fn create_product(
         &mut self,
-        product_id: u64,
+        product_id: String,
         shop_id: AccountId,
         name: String,
         price: Balance,
@@ -44,7 +44,7 @@ impl ImplementECommerce for Contract {
         assert!(self.products.get(&product_id).is_none(), "Product already exists");
         assert!(self.shops.get(&shop_id).is_some(), "Shop does not exist");
 
-        let product = Product{product_id, shop_id, name, price, total_supply};
+        let product = Product{product_id: product_id.clone(), shop_id, name, price, total_supply};
         self.products.insert(&product_id, &product);
     }
 
@@ -59,16 +59,16 @@ impl ImplementECommerce for Contract {
             .collect()
     }
 
-     fn view_product_by_id(&self, product_id: u64) -> Option<Product> {
+     fn view_product_by_id(&self, product_id: String) -> Option<Product> {
         self.products.get(&product_id)
     }
 
     #[payable]
-     fn payment(&mut self, product_id: u64) -> Promise {
+     fn payment(&mut self, product_id: String, amount: u64) -> Promise {
         let mut product = self.products.get(&product_id).expect("Product does not exist");
         assert!(product.total_supply > 0, "Product out of stock");
 
-        product.total_supply -= 1;
+        product.total_supply -= amount;
         self.products.insert(&product_id, &product);
         let buyer = env::signer_account_id();
         let price = product.price;
